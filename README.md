@@ -1,1 +1,3 @@
-# Algorithms \nAbunch of Python Algoritms
+# Algorithms 
+
+A bunch of Python Algoritms
