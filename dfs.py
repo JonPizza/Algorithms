@@ -1,12 +1,10 @@
 import random
 
-
 class Node:
-    def __init__(self, value, left=None, right=None, has_conn=False):
+    def __init__(self, value, left=None, right=None):
         self.value = value
         self.left = left
         self.right = right
-        self.has_conn = has_conn
 
     def __str__(self):
         return str(self.value)
@@ -23,22 +21,38 @@ nodes[2].left = nodes[5]
 nodes[2].right = nodes[6]
 nodes[6].right = nodes[8]
 
-def show_nodes(root):
+def show_nodes(root, d):
     if root is None:
         return 
     
-    print(root)
-    show_nodes(root.left)
-    show_nodes(root.right)
+    print(d, root)
+    show_nodes(root.left, 'left')
+    show_nodes(root.right, 'right')
 
-def dfs(root, goal, path=[]):
-    if root == goal:
+def dfs(root, goal, path=[], popped=[], sender_node_val=0):
+    print(root, path)
+    if goal.value in path:
         return path
-    if root == None:
+    if not root:
+        if sender_node_val not in popped:
+            popped.append(sender_node_val)
+            path.pop()
         return []
     
     path.append(root.value)
-    dfs(root.left, goal, path)
-    dfs(root.right, goal, path)
 
-print(dfs(nodes[0], nodes[4]))
+    l = dfs(root.left, goal, path, popped, root.value) 
+    r = dfs(root.right, goal, path, popped, root.value)
+    
+    if goal.value in l:
+        return l
+    elif goal.value in r:
+        return r
+    return []
+    
+
+
+
+# show_nodes(nodes[0], 'root')
+
+print(dfs(nodes[0], nodes[int(input('Node: '))]))
