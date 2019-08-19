@@ -60,7 +60,7 @@ def recurse_solve(maze, win, path):
     else:
         return r4
 
-
-maze = open_img(sys.argv[1], 32)
+# i.e, "python maze_solver.py 3232maze.png"
+maze = open_img('A-maze-ing/'+sys.argv[1], 32)
 solve(maze)
 
